@@ -1,6 +1,6 @@
 # webscraping
 This script is written for practising webscraping on the best site holding the great world leagues football data in best for;ats and for free.
-The website is : (https://www.football-data.co.uk)[https://www.football-data.co.uk]
+The website is : [https://www.football-data.co.uk](https://www.football-data.co.uk)
 
 # PURPOSE
 Our main goal is to provide a quick tool or script to grab needed football data for main purposes. Ours are > 
