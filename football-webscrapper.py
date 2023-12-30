@@ -2,7 +2,6 @@ import requests
 import re
 import json
 import csv
-import pandas as pd
 from bs4 import BeautifulSoup
 
 def get_csv_links(url):
@@ -315,15 +314,20 @@ def download_csv_files_by_country_and_season(data_structure, output_folder):
                 else:
                     print(f"Failed to download: {country}/{season}/{file_name}")
 
-
 def run():
+    # CHANGES NEEDED HERE !
+    # Please change these variables values before executing the run() function !
+    output_folder = ""
+
+    # DON'T TOUCH ANYTHING HERE
     mandatory_base_url = "https://football-data.co.uk/data.php"
     structured_data = process_weblink(mandatory_base_url)
     print_special_structured_data(structured_data)
+    save_data_in_file(output_folder, structured_data, filetype='json')
+    download_csv_files_by_country_and_season(structured_data, output_folder)
 
 ################################### TEST ZONE ###################################
-
-#process_weblink("https://football-data.co.uk/data.php")
-#run()
+# use
+run()
     
 
