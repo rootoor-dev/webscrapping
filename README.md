@@ -1,5 +1,5 @@
 ```
-I'n the author of this script which targets football data stored in csv files at "https://www.football-data.co.uk".
+I'm the author of this script which targets football data stored in csv files at "https://www.football-data.co.uk".
 Other scripts from other author freely available have been suggested too for comparing first but for code studying
 in order to understand what is webscraping and how to practise it safely by practice.
 I need your contribution for improving my scripts and more.
