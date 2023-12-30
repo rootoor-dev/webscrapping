@@ -1,7 +1,6 @@
 # Source 
-```
-Master Thesis : `Prediction of football players’ position using Data Mining and Machine Learning techniques`   (https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf)[https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf] (Accessed at 30th December 2023, 08h00)
-```
+**Master Thesis :** `Prediction of football players’ position using Data Mining and Machine Learning techniques`   (https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf)[https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf] (Accessed at 30th December 2023, 08h00)
+
 **NOTE** : Chatgpt has been used to help in copying and rewrtting by refactoring the code. For the original codes, please read the thesis.
 
 # Website to scrape
