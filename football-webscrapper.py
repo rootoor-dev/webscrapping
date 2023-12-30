@@ -3,7 +3,6 @@ import re
 import json
 import csv
 import os
-import pandas as pd
 from bs4 import BeautifulSoup
 
 def get_csv_links(url):
@@ -309,6 +308,7 @@ def download_csv_files(data_structure, output_folder):
                     print(f"Failed to download: {file_name}")
 
 def download_csv_files_by_country_and_season(data_structure, output_folder):
+    #download_notes_file()
     for country, seasons in data_structure.items():
         for season, csv_files in seasons.items():
             #print(season) # Season 2023/2024 not recommanded for folder names
@@ -336,6 +336,15 @@ def download_csv_files_by_country_and_season(data_structure, output_folder):
                     print(f"Failed to download: {country}/{season}/{file_name}")
                 #break
 
+def download_notes_file():
+    response = requests.get("https://www.football-data.co.uk/notes.txt")
+    if response.status_code == 200:
+        with open(".", 'wb') as f:
+            f.write(response.content)
+        print(f"Downloaded: Notes.txt (text file key to the data files and data source acknowledgements)")
+    else:
+        print(f"Failed to download: Notes.txt (text file key to the data files and data source acknowledgements)")
+
 def run():
     # CHANGES NEEDED HERE !
     # Please change these variables values before executing the run() function !
@@ -346,6 +355,7 @@ def run():
     structured_data = process_weblink(mandatory_base_url)
     #print_data_structure(structured_data)
     save_data_in_file(output_folder, structured_data, filetype='json')
+    download_notes_file() # see another place it could be in the download_csv_files function
     download_csv_files_by_country_and_season(structured_data, output_folder)
 
 ################################### TEST ZONE ###################################
@@ -355,8 +365,10 @@ def run():
       - web scrape the website "https://football-data.co.uk/data.php"
       - store data into a data structure named "data_structure" or what you want
       - save all downloaded files by country and season
+      - download the description file which describes and explain the data and variable names
+        stored at "https://www.football-data.co.uk/notes.txt"
 
-    Add more function you want and Enjoy !
+    Enjoy !
 
 """
 run()
