@@ -12,6 +12,7 @@ Our main goal is to provide a quick tool or script to grab needed football data 
 - etc.
 
 So please contribute as you can to improve the code and help to understand this wide domain which is Data Science or Artificial Intelligence. 
+
 ---
 
 # Football Data Web Scraping Tools
@@ -43,5 +44,36 @@ Contributions are welcome! If you have improvements, additional features, or fix
 This project is intended for educational purposes only. Be sure to review and comply with the terms of service of any websites you interact with. The code is provided under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
+
+# HOW TO ?
+
+The final data structure will look like :
+
+```
+data_structure = {
+    "england": {
+        "Season 2023/2024": [
+            ["england_Premier_League_2023-2024.csv", "https://football-data.co.uk/mmz4281/2324/E0.csv"],
+            ["england_Championship_2023-2024.csv", "https://football-data.co.uk/mmz4281/2324/E1.csv"],
+            ["england_League_1_2023-2024.csv", "https://football-data.co.uk/mmz4281/2324/E2.csv"],
+            ["england_League_2_2023-2024.csv", "https://football-data.co.uk/mmz4281/2324/E3.csv"],
+            ["england_Conference_2023-2024.csv", "https://football-data.co.uk/mmz4281/2324/EC.csv"]
+        ],
+        "Season 2022/2023": [
+            ["england_Premier_League_2022-2023.csv", "https://football-data.co.uk/mmz4281/2223/E0.csv"],
+            ["england_Championship_2022-2023.csv", "https://football-data.co.uk/mmz4281/2223/E1.csv"],
+            ["england_League_1_2022-2023.csv", "https://football-data.co.uk/mmz4281/2223/E2.csv"],
+            ["england_League_2_2022-2023.csv", "https://football-data.co.uk/mmz4281/2223/E3.csv"]
+            # ... additional seasons
+        ]
+        # ... additional seasons
+    }
+    # ... additional countries
+}
+```
+
+
+print_data_structure(data_structure)
+
 
 Feel free to adjust the description based on your project's specific details and goals.
