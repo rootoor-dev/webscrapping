@@ -72,8 +72,13 @@ data_structure = {
 }
 ```
 
+This Python script does the following things:
 
-print_data_structure(data_structure)
+1. It defines several functions like `get_csv_links`, `process_weblink`, `save_data_in_file`, `print_data_structure`, and `download_csv_files`.
+2. The `process_weblink` function processes the base URL and recursively collects all the CSV links along with their associated country and season information.
+3. The `save_data_in_file` function can be used to save the collected data structure into various formats such as JSON, CSV, or plain text.
+4. The `print_data_structure` function prints the data structure without saving it.
+5. In the `main` function, we set the output folder, base URL, call the `process_weblink` function to obtain the data structure, and then call the `download_csv_files` function to download the CSV files. You can uncomment the `print_data_structure` call at the end to view the data structure before downloading the files.
 
-
-Feel free to adjust the description based on your project's specific details and goals.
+   
+**Feel free to adjust the description based on your project's specific details and goals.**
