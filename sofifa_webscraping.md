@@ -1,21 +1,17 @@
 # Source 
-
 ```
- Master Thesis : `Prediction of football players’ position using Data Mining and Machine Learning techniques`   [https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf](https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf) (Accessed at 30th December 2023, 08h00)
-
+Master Thesis : `Prediction of football players’ position using Data Mining and Machine Learning techniques`   (https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf)[https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf] (Accessed at 30th December 2023, 08h00)
 ```
-
 **NOTE** : Chatgpt has been used to help in copying and rewrtting by refactoring the code. For the original codes, please read the thesis.
 
 # Website to scrape
 
-This code allows to apply web scraping technique on the first web page from [https://sofifa.com/](https://sofifa.com/).
+This code allows to apply web scraping technique on the first web page from (https://sofifa.com/)[https://sofifa.com/].
 In the code, this is variable `url = https://sofifa.com/`
 
 # Purpose
 
 The Python script is writting for web scraping FIFA 22 player data and manipulating the data. This script uses the BeautifulSoup library for web scraping and pandas for data manipulation. Here's a brief summary of the functions in the script:
-
 
 ## Functions of the code
 
