@@ -135,6 +135,7 @@ def print_data_structure(data_structure):
                 print(f"    {file_name}: {file_url}")
 
 def download_csv_files(data_structure, output_folder):
+    download_notes_file()
     for country, seasons in data_structure.items():
         for season, csv_files in seasons.items():
             for csv_file in csv_files:
@@ -169,6 +170,15 @@ def download_csv_files_by_country_and_season(data_structure, output_folder):
                 else:
                     print(f"Failed to download: {country}/{season}/{file_name}")
 
+def download_notes_file():
+    response = requests.get("https://www.football-data.co.uk/notes.txt")
+    if response.status_code == 200:
+        with open(".", 'wb') as f:
+            f.write(response.content)
+        print(f"Downloaded: Notes.txt (text file key to the data files and data source acknowledgements)")
+    else:
+        print(f"Failed to download: Notes.txt (text file key to the data files and data source acknowledgements)")
+
 def run():
     # CHANGES NEEDED HERE !
     # Please change these variables values before executing the run() function !
@@ -184,10 +194,13 @@ def run():
 if __name__ == "__main__":
 
     """
+    The refactoring and clean code for creating main.py
     Actually, the script will :
       - web scrape the website "https://football-data.co.uk/data.php"
       - store data into a data structure named "data_structure" or what you want
       - save all downloaded files by country and season
+      - download the description file which describes and explain the data and variable names
+        stored at "https://www.football-data.co.uk/notes.txt"
 
       Enjoy !
 
