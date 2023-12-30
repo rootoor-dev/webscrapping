@@ -1,3 +1,11 @@
+```
+I'n the author of this script which targets football data stored in csv files at "https://www.football-data.co.uk".
+Other scripts from other author freely available have been suggested too for comparing first but for code studying
+in order to understand what is webscraping and how to practise it safely by practice.
+I need your contribution for improving my scripts and more.
+You are welcome !
+Junior ADI <rootoor/>
+```
 # webscraping
 This script is written for practising webscraping on the best site holding the great world leagues football data in a cool format and for free.
 The website is : [https://www.football-data.co.uk](https://www.football-data.co.uk)
@@ -82,3 +90,11 @@ This Python script does the following things:
 
    
 **Feel free to adjust the description based on your project's specific details and goals.**
+
+# Other scripts or packages suggestions
+
+- The first I recommand you to try at your own risks is (https://github.com/probberechts/soccerdata)[https://github.com/probberechts/soccerdata]. A good tool.
+- I suggest you to read (https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf)[https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf]
+- Many other scripts are available on the web. Don't forget to google to get what you want.
+
+  Thank you.
