@@ -3,6 +3,7 @@ import re
 import json
 import csv
 import os
+import pandas as pd
 from bs4 import BeautifulSoup
 
 def get_csv_links(url):
@@ -10,6 +11,7 @@ def get_csv_links(url):
     response = requests.get(url).content
     soup = BeautifulSoup(response, 'html.parser')
     csv_links = []
+
     for img in soup.find_all('img'):
         img_link = img.find_next_sibling('a')
         if img_link and img_link.get('href', '').endswith('.csv'):
@@ -17,6 +19,7 @@ def get_csv_links(url):
                 "href": base_url + img_link["href"],
                 "text": img_link.get_text() or img.get("alt"),
             })
+
     return csv_links
 
 def split_link(link, separator='/'):
@@ -29,7 +32,8 @@ def transform_to_years(years):
     if len(years_str) == 4:
         start_year = int(years_str[:2])
         end_year = int(years_str[2:])
-        if start_year >= 70 or end_year >= 70:
+
+        if start_year >=70 or end_year >=70:
             start_year = 1900 + start_year
             end_year = start_year + 1
             return f"{start_year}/{end_year}"
@@ -49,6 +53,7 @@ def get_all_csvlinks_webpages_as_dictionnary(base_url):
     table_body = soup.find_all('div', class_="menus")
     links = []
     links_dict = {}
+
     for div in table_body:
         a_tag = div.find('a')
         if a_tag and a_tag.has_attr('href'):
@@ -59,6 +64,7 @@ def get_all_csvlinks_webpages_as_dictionnary(base_url):
 
     for link in links:
         match = regex.match(link)
+
         if match:
             country_name = match.group(1).rstrip("m")
             links_dict[link] = country_name
@@ -68,19 +74,25 @@ def get_all_csvlinks_webpages_as_dictionnary(base_url):
 def process_weblink(football_data_co_uk_link):
     all_links_dict = get_all_csvlinks_webpages_as_dictionnary(football_data_co_uk_link)
     football_data = {}
+
     for link, country_name in all_links_dict.items():
         csv_links_list_dict = get_csv_links(link)
+
         for entry in csv_links_list_dict:
             link = entry['href']
             text = entry['text']
             season = seasonify_from(link)
             season_formatted = f"Season {season}"
+
             if country_name not in football_data:
                 football_data[country_name] = {}
+
             if season_formatted not in football_data[country_name]:
                 football_data[country_name][season_formatted] = []
-            final_csv_file_name = [country_name + "_" + text.replace(' ', '_') + "_" + season.replace('/', '-') + '.csv', link]
+            
+            final_csv_file_name = [country_name + "_" + text.replace(' ', '_') + "_"+ season.replace('/', '-') + '.csv', link]
             football_data[country_name][season_formatted].append(final_csv_file_name)
+
     return football_data
 
 def save_data_in_file(output_folder, data_structure, filetype='json'):
@@ -114,11 +126,14 @@ def save_data_in_file(output_folder, data_structure, filetype='json'):
                         txt_file.write(f"    {', '.join(csv_file)}\n")
         print(f"Data structure saved to {output_file}")
 
-def print_special_structured_data(football_data_dict):
-    for country, seasons in football_data_dict.items():
+def print_data_structure(data_structure):
+    for country, seasons in data_structure.items():
         print(f"Country: {country}")
         for season, csv_files in seasons.items():
-            print(f"{season}: {', '.join(csv_files)}")
+            print(f"  Season: {season}")
+            for csv_file in csv_files:
+                file_name, file_url = csv_file
+                print(f"    {file_name}: {file_url}")
 
 def download_csv_files(data_structure, output_folder):
     for country, seasons in data_structure.items():
@@ -126,7 +141,9 @@ def download_csv_files(data_structure, output_folder):
             for csv_file in csv_files:
                 file_name, file_url = csv_file
                 output_path = os.path.join(output_folder, country, season, file_name)
+
                 os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
                 response = requests.get(file_url)
                 if response.status_code == 200:
                     with open(output_path, 'wb') as f:
@@ -138,11 +155,13 @@ def download_csv_files(data_structure, output_folder):
 def download_csv_files_by_country_and_season(data_structure, output_folder):
     for country, seasons in data_structure.items():
         for season, csv_files in seasons.items():
-            season_folder = os.path.join(output_folder, country, season)
+            season_folder = os.path.join(output_folder, country, season.replace('/', '_'))
             os.makedirs(season_folder, exist_ok=True)
+
             for csv_file in csv_files:
                 file_name, file_url = csv_file
                 output_path = os.path.join(season_folder, file_name)
+
                 response = requests.get(file_url)
                 if response.status_code == 200:
                     with open(output_path, 'wb') as f:
@@ -154,13 +173,13 @@ def download_csv_files_by_country_and_season(data_structure, output_folder):
 def run():
     # CHANGES NEEDED HERE !
     # Please change these variables values before executing the run() function !
-    output_folder = ""
+    output_folder = "."
 
     # DON'T TOUCH ANYTHING HERE
     mandatory_base_url = "https://football-data.co.uk/data.php"
     structured_data = process_weblink(mandatory_base_url)
-    print_special_structured_data(structured_data)
-    save_data_in_file(output_folder, structured_data, filetype='json')
+    #print_data_structure(structured_data)
+    #save_data_in_file(output_folder, structured_data, filetype='json')
     download_csv_files_by_country_and_season(structured_data, output_folder)
 
 ################################### TEST ZONE ###################################
