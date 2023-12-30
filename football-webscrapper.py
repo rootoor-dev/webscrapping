@@ -2,6 +2,8 @@ import requests
 import re
 import json
 import csv
+import os
+import pandas as pd
 from bs4 import BeautifulSoup
 
 def get_csv_links(url):
@@ -82,6 +84,8 @@ def get_all_csvlinks_webpages_as_dictionnary(base_url):
         if a_tag and a_tag.has_attr('href'):  # Vérifier si la balise <a> a un attribut href
             a_tag_link = a_tag['href']
             links.append(a_tag_link)
+
+
 
     """
     Voici les liens qu'on cible en réalité
@@ -267,12 +271,23 @@ def save_data_in_file(output_folder, data_structure, filetype='json'):
                         txt_file.write(f"    {', '.join(csv_file)}\n")
         print(f"Data structure saved to {output_file}")
 
+"""
 def print_special_structured_data(football_data_dict):
     # Print the structured data
     for country, seasons in football_data_dict.items():
         print(f"Country: {country}")
         for season, csv_files in seasons.items():
             print(f"{season}: {', '.join(csv_files)}")
+"""
+
+def print_data_structure(data_structure):
+    for country, seasons in data_structure.items():
+        print(f"Country: {country}")
+        for season, csv_files in seasons.items():
+            print(f"  Season: {season}")
+            for csv_file in csv_files:
+                file_name, file_url = csv_file
+                print(f"    {file_name}: {file_url}")
 
 def download_csv_files(data_structure, output_folder):
     for country, seasons in data_structure.items():
@@ -296,12 +311,20 @@ def download_csv_files(data_structure, output_folder):
 def download_csv_files_by_country_and_season(data_structure, output_folder):
     for country, seasons in data_structure.items():
         for season, csv_files in seasons.items():
-            season_folder = os.path.join(output_folder, country, season)
+            #print(season) # Season 2023/2024 not recommanded for folder names
+            #break
+            season_folder = os.path.join(output_folder, country, season.replace('/', '_')) # ./england/Season 2023_2024
+            #print(season_folder)
+            #break
             os.makedirs(season_folder, exist_ok=True)
 
             for csv_file in csv_files:
                 file_name, file_url = csv_file
                 output_path = os.path.join(season_folder, file_name)
+                #print(file_name)
+                #print(file_url)
+                #print(output_path)
+                #break
 
                 # Download the file
                 response = requests.get(file_url)
@@ -311,21 +334,20 @@ def download_csv_files_by_country_and_season(data_structure, output_folder):
                     print(f"Downloaded: {country}/{season}/{file_name}")
                 else:
                     print(f"Failed to download: {country}/{season}/{file_name}")
+                #break
 
 def run():
     # CHANGES NEEDED HERE !
     # Please change these variables values before executing the run() function !
-    output_folder = ""
+    output_folder = "."
 
     # DON'T TOUCH ANYTHING HERE
     mandatory_base_url = "https://football-data.co.uk/data.php"
     structured_data = process_weblink(mandatory_base_url)
-    print_special_structured_data(structured_data)
-    save_data_in_file(output_folder, structured_data, filetype='json')
+    #print_data_structure(structured_data)
+    #save_data_in_file(output_folder, structured_data, filetype='json')
     download_csv_files_by_country_and_season(structured_data, output_folder)
 
 ################################### TEST ZONE ###################################
 # use
 run()
-    
-
