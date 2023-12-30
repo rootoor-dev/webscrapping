@@ -83,8 +83,6 @@ def get_all_csvlinks_webpages_as_dictionnary(base_url):
             a_tag_link = a_tag['href']
             links.append(a_tag_link)
 
-
-
     """
     Voici les liens qu'on cible en réalité
 
