@@ -93,8 +93,8 @@ This Python script does the following things:
 
 # Other scripts or packages suggestions
 
-- The first I recommand you to try at your own risks is (https://github.com/probberechts/soccerdata)[https://github.com/probberechts/soccerdata]. A good tool.
-- I suggest you to read (https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf)[https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf]
+- The first I recommand you to try at your own risks is [https://github.com/probberechts/soccerdata](https://github.com/probberechts/soccerdata). A good tool.
+- I suggest you to read [https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf](https://thesis.unipd.it/retrieve/8224c2d2-200b-4e6d-a0e9-d2458dd5adf9/Gobbo_Alberto.pdf)
 - Many other scripts are available on the web. Don't forget to google to get what you want.
 
   Thank you.
