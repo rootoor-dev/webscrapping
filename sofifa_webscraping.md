@@ -271,7 +271,7 @@ class FIFAWebScraper:
             else:
                 print("All players have been downloaded.")
 
-    def ManipulateAndCleanData():
+    def manipulate_and_clean_data():
         # Split each row to cells
         cleaned_dataset = results_features_values[0].str.split(',', expand=True)
 
