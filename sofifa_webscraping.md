@@ -505,3 +505,101 @@ if __name__ == "__main__":
 - **Testing:** Implement unit tests to verify the code's functionality and handle potential changes in the website's structure.
 - **Parameterization:** Make the code more adaptable by allowing users to specify the target URL and output file path.
 - **Logging:** Add logging to track the scraping process and identify any errors or issues during execution.
+
+# HugginfaceChat code refactoring
+
+ The provided code seems to be a script that uses Beautiful Soup library along with other libraries like Requests, Pandas, Re, and Time to scrape data from FIFA Ultimate Team (FUT) player statistics available at sofifa.com website. The script creates an instance of `FIFAWebScraper` class by passing the URL as an argument during initialization. It then defines methods such as `catch_web_page_table`, `catch_features_names`, `catch_features_values`, `first_page_web_scraping`, `next_pages_web_scraping`, `manipulate_and_clean_data`, and `generate_csv_dataset`.
+
+The following suggestions can help improve the code:
+
+1. Use context manager for handling HTTP requests instead of manually calling `time.sleep()` between API calls.
+2. Add error handling mechanisms for cases when the server returns non-200 status codes or when there's no table found on the page.
+3. Make use of list comprehension instead of loops where possible.
+4. Instead of hardcoding the number of columns you want to keep after cleaning the data, consider reading this information directly from the HTML.
+5. Consider refactoring some parts of the code into separate helper functions.
+
+Here's how the improved version might look like:
+
+```python
+from bs4 import BeautifulSoup
+import requests
+import time
+import re
+import pandas as pd
+
+class FIFAWebScraper:
+    def __init__(self, url):
+        self.url = url
+        self.results_features_values = None
+
+    def _make_request(self, url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            return response.text
+        except Exception as e:
+            print(f"Request failed with error message: {str(e)}")
+            raise
+
+    def _parse_table(self, html):
+        soup = BeautifulSoup(html, 'html.parser')
+        table = soup.find('table')
+        return table
+
+    def _extract_headers(self, table):
+        headers = table.find_all("th")
+        return [header.text.strip() for header in headers]
+
+    def _extract_player_stats(self, table):
+        rows = table.find_all("tr")[:-1]
+        stats = [[cell.text.strip() for cell in row.find_all("td")] for row in rows]
+        return stats
+
+    def _process_data(self, headers, stats):
+        df = pd.DataFrame(stats, columns=headers)
+        df = df.dropna(how='all')
+        df = df.iloc[:, 1:]
+        df.columns = ['Player'] + df.columns.tolist()[1:]
+        df = df.reset_index(drop=True)
+        return df
+
+    def scrape_players_statistics(self):
+        base_url = self.url
+        page_size = 60
+        start_offset = 0
+
+        while True:
+            url = f"{base_url}?offset={start_offset}"
+            html = self._make_request(url)
+
+            table = self._parse_table(html)
+            headers = self._extract_headers(table)
+            stats = self._extract_player_stats(table)
+
+            if not stats:
+                break
+
+            data = self._process_data(headers, stats)
+
+            if self.results_features_values is None:
+                self.results_features_values = data
+            else:
+                self.results_features_values = pd.concat([self.results_features_values, data])
+
+            start_offset += page_size
+            time.sleep(0.5)
+
+    def save_to_csv(self, output_file):
+        self.results_features_values.to_csv(output_file, index=False, encoding="utf-8")
+
+def main():
+    url = "https://sofifa.com/"
+    scraper = FIFAWebScraper(url)
+    scraper.scrape_players_statistics()
+    scraper.save_to_csv("path/FIFA22_Dataset.csv")
+
+if __name__ == "__main__":
+    main()
+```
+
+This updated version includes better error handling, more
