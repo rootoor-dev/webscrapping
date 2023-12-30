@@ -237,7 +237,7 @@ def process_weblink(football_data_co_uk_link):
             # Append the CSV file to the corresponding season
             final_csv_file_name = [country_name + "_" + text.replace(' ', '_') + "_"+ season.replace('/', '-') + '.csv', link]
             football_data[country_name][season_formatted].append(final_csv_file_name)
-        break    
+        #break    
     return football_data
 
 def save_data_in_file(output_folder, data_structure, filetype='json'):
@@ -345,9 +345,19 @@ def run():
     mandatory_base_url = "https://football-data.co.uk/data.php"
     structured_data = process_weblink(mandatory_base_url)
     #print_data_structure(structured_data)
-    #save_data_in_file(output_folder, structured_data, filetype='json')
+    save_data_in_file(output_folder, structured_data, filetype='json')
     download_csv_files_by_country_and_season(structured_data, output_folder)
 
 ################################### TEST ZONE ###################################
 # use
+"""
+    Actually, the script will :
+      - web scrape the website "https://football-data.co.uk/data.php"
+      - store data into a data structure named "data_structure" or what you want
+      - save all downloaded files by country and season
+
+    Add more function you want and Enjoy !
+
+"""
 run()
+
